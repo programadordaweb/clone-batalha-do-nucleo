@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#1a1410">
+<meta name="description" content="CLONE! - jogo de ação estilo Cuphead sobre clonagem celular, mitose e DNA.">
+<title>CLONE! — A Batalha do Núcleo</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="shell">
+  <div id="stage">
+    <canvas id="game" width="640" height="360"></canvas>
+
+    <!-- ====== CONTROLES DE TOQUE (celular / tablet) ====== -->
+    <div id="touch" class="hidden">
+      <div class="pad-left">
+        <button class="tbtn dpad" data-act="left"  aria-label="Esquerda"><span>◀</span></button>
+        <button class="tbtn dpad" data-act="up"    aria-label="Cima"><span>▲</span></button>
+        <button class="tbtn dpad" data-act="down"  aria-label="Baixo"><span>▼</span></button>
+        <button class="tbtn dpad" data-act="right" aria-label="Direita"><span>▶</span></button>
+      </div>
+      <div class="pad-right">
+        <button class="tbtn act a-dash"  data-act="dash"  aria-label="Correr"><span>DASH</span></button>
+        <button class="tbtn act a-super" data-act="super" aria-label="Super"><span>SUPER</span></button>
+        <button class="tbtn act a-shoot" data-act="shoot" aria-label="Atirar"><span>TIRO</span></button>
+        <button class="tbtn act a-jump"  data-act="jump"  aria-label="Pular"><span>PULO</span></button>
+      </div>
+      <button id="btn-pause" class="tbtn sys" data-act="pause" aria-label="Pausar"><span>II</span></button>
+    </div>
+  </div>
+
+  <div id="rotate" class="hidden">
+    <div class="rot-inner">
+      <div class="rot-icon">📱</div>
+      <p>Vire o celular na horizontal<br>para jogar!</p>
+    </div>
+  </div>
+</div>
+
+<script src="js/input.js" charset="utf-8"></script>
+<script src="js/audio.js" charset="utf-8"></script>
+<script src="js/art.js" charset="utf-8"></script>
+<script src="js/shop.js" charset="utf-8"></script>
+<script src="js/entities.js" charset="utf-8"></script>
+<script src="js/boss.js" charset="utf-8"></script>
+<script src="js/map.js" charset="utf-8"></script>
+<script src="js/game.js" charset="utf-8"></script>
+</body>
+</html>
