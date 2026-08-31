@@ -6,7 +6,7 @@
 
 html, body {
   width:100%; height:100%; overflow:hidden;
-  background:#120e0b;
+  background:#2f251b;
   font-family:"Trebuchet MS", "Segoe UI", Verdana, sans-serif;
   color:#f4e6c8;
   touch-action:none;
@@ -17,16 +17,16 @@ html, body {
 #shell{
   position:fixed; inset:0;
   display:flex; align-items:center; justify-content:center;
+  /* nada de preto: se sobrar alguma faixa, ela tem a cor da bancada do laboratorio */
   background:
-    radial-gradient(ellipse at 50% 40%, #2a2018 0%, #120e0b 70%),
-    #120e0b;
+    radial-gradient(ellipse at 50% 45%, #5c4a37 0%, #2f251b 75%),
+    #2f251b;
 }
 
-/* área do jogo: mantém proporção 16:9 e ocupa o máximo possível */
+/* area do jogo: o tamanho exato e calculado no JavaScript (fitStage) */
 #stage{
   position:relative;
-  width:min(100vw, calc(100vh * 16 / 9));
-  height:min(100vh, calc(100vw * 9 / 16));
+  width:100vw; height:100vh;
   max-width:100vw; max-height:100vh;
 }
 
@@ -35,8 +35,6 @@ canvas#game{
   width:100%; height:100%;
   image-rendering:auto;
   background:#e8d9b0;
-  box-shadow:0 0 0 3px #1a1410, 0 12px 48px rgba(0,0,0,.8);
-  border-radius:4px;
 }
 
 .hidden{ display:none !important; }

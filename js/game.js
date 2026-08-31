@@ -9,34 +9,53 @@ const ctx = canvas.getContext('2d');
 const touchUI = document.getElementById('touch');
 const rotateUI = document.getElementById('rotate');
 
-/* ---------- resolucao interna nitida ---------- */
+/* ---------- TELA SEM BORDA PRETA ----------
+   A altura do jogo é sempre 360. A LARGURA acompanha o formato da
+   tela do aparelho (dentro de um limite), então o desenho ocupa a
+   janela inteira: nada de tarjas pretas nas laterais.               */
 const SCALE = Math.min(2, Math.max(1, window.devicePixelRatio || 1));
-function setupCanvas(){
+const stageEl = document.getElementById('stage');
+var jogoPronto = false;   // vira true no fim do arquivo (evita usar Game cedo demais)
+const W_MIN = 500, W_MAX = 940;      // limites da largura interna
+
+function viewport(){
+  const vw = (window.visualViewport && window.visualViewport.width)  || window.innerWidth;
+  const vh = (window.visualViewport && window.visualViewport.height) || window.innerHeight;
+  return {vw:Math.max(1,vw), vh:Math.max(1,vh)};
+}
+
+function fitStage(){
+  const {vw, vh} = viewport();
+
+  // largura interna = altura fixa x formato da tela (limitada)
+  let larg = Math.round(CFG.H * (vw/vh) / 2) * 2;
+  larg = Math.max(W_MIN, Math.min(W_MAX, larg));
+
+  if (larg !== CFG.W){
+    CFG.W = larg;
+    Art.buildGrain(CFG.W, CFG.H);
+    if (jogoPronto && Game.boss) Game.boss.reposicionar();
+  }
+
   canvas.width  = CFG.W * SCALE;
   canvas.height = CFG.H * SCALE;
   ctx.setTransform(SCALE,0,0,SCALE,0,0);
   ctx.imageSmoothingEnabled = true;
-}
-setupCanvas();
 
-/* ---------- PROPORÇÃO 16:9 ----------
-   O palco é medido em JavaScript: sempre o maior retângulo 16:9 que
-   cabe na janela, centralizado. Funciona em qualquer monitor/janela. */
-const stageEl = document.getElementById('stage');
-
-function fitStage(){
-  const vw = (window.visualViewport && window.visualViewport.width)  || window.innerWidth;
-  const vh = (window.visualViewport && window.visualViewport.height) || window.innerHeight;
-  let w = vw, h = Math.round(vw * 9 / 16);
-  if (h > vh){ h = vh; w = Math.round(vh * 16 / 9); }
+  // o palco preenche a janela toda mantendo a proporção interna
+  let w = vw, h = Math.round(vw * CFG.H / CFG.W);
+  if (h > vh){ h = vh; w = Math.round(vh * CFG.W / CFG.H); }
   stageEl.style.width  = w + 'px';
   stageEl.style.height = h + 'px';
+
   updateOrientation();
 }
+
 addEventListener('resize', fitStage);
 addEventListener('orientationchange', () => setTimeout(fitStage, 250));
 if (window.visualViewport) window.visualViewport.addEventListener('resize', fitStage);
 document.addEventListener('fullscreenchange', () => setTimeout(fitStage, 60));
+document.addEventListener('webkitfullscreenchange', () => setTimeout(fitStage, 60));
 
 /* ---------- deteccao de toque (celular de verdade) ---------- */
 const COARSE = window.matchMedia ? window.matchMedia('(pointer: coarse)').matches : false;
@@ -50,22 +69,61 @@ function updateOrientation(){
   rotateUI.classList.toggle('hidden', !(IS_TOUCH && portrait && window.innerWidth < 900));
 }
 
-function toggleFullscreen(){
+/* ---------- TELA CHEIA AUTOMÁTICA ----------
+   O navegador só deixa entrar em tela cheia a partir de um toque ou
+   tecla do jogador. Então o jogo entra sozinho no PRIMEIRO comando,
+   sem precisar de botão. (Instalado no celular já abre em tela cheia.) */
+function estaEmTelaCheia(){
+  return !!(document.fullscreenElement || document.webkitFullscreenElement);
+}
+
+function entrarTelaCheia(){
   const el = document.documentElement;
   try {
-    if (!document.fullscreenElement && !document.webkitFullscreenElement){
-      const req = el.requestFullscreen || el.webkitRequestFullscreen;
-      if (req){ const r = req.call(el); if (r && r.catch) r.catch(()=>{}); }
-      if (IS_TOUCH && screen.orientation && screen.orientation.lock){
-        const r2 = screen.orientation.lock('landscape');
-        if (r2 && r2.catch) r2.catch(()=>{});
-      }
-    } else {
-      const ex = document.exitFullscreen || document.webkitExitFullscreen;
-      if (ex){ const r = ex.call(document); if (r && r.catch) r.catch(()=>{}); }
+    const req = el.requestFullscreen || el.webkitRequestFullscreen;
+    if (req){ const r = req.call(el); if (r && r.catch) r.catch(()=>{}); }
+    if (IS_TOUCH && screen.orientation && screen.orientation.lock){
+      const r2 = screen.orientation.lock('landscape');
+      if (r2 && r2.catch) r2.catch(()=>{});
     }
   } catch(e){}
   setTimeout(fitStage, 120);
+}
+
+function sairTelaCheia(){
+  try {
+    const ex = document.exitFullscreen || document.webkitExitFullscreen;
+    if (ex){ const r = ex.call(document); if (r && r.catch) r.catch(()=>{}); }
+  } catch(e){}
+  setTimeout(fitStage, 120);
+}
+
+function toggleFullscreen(){
+  if (estaEmTelaCheia()) sairTelaCheia(); else entrarTelaCheia();
+}
+
+let telaCheiaTentada = false;
+function telaCheiaAutomatica(){
+  if (telaCheiaTentada) return;
+  telaCheiaTentada = true;
+  if (!estaEmTelaCheia()) entrarTelaCheia();
+}
+['pointerdown','keydown','touchstart'].forEach(ev =>
+  addEventListener(ev, telaCheiaAutomatica, {once:true, capture:true}));
+
+/* ---------- INSTALAR NO CELULAR ---------- */
+let promptInstalar = null;
+addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  promptInstalar = e;
+});
+addEventListener('appinstalled', () => { promptInstalar = null; });
+
+function instalarJogo(){
+  if (!promptInstalar) return false;
+  promptInstalar.prompt();
+  promptInstalar.userChoice.then(() => { promptInstalar = null; }).catch(()=>{});
+  return true;
 }
 
 fitStage();
@@ -854,6 +912,19 @@ function drawTitle(){
     });
   });
 
+  // botao de instalar no celular (so aparece se o navegador oferecer)
+  if(promptInstalar){
+    const txt='INSTALAR NO CELULAR';
+    const w=Art.measure(ctx,txt,11)+34;
+    const bx=14+w/2, by=26;
+    Game.menuHit.push({x:bx-w/2,y:by-13,w,h:26,i:-1});
+    ctx.save();
+    ctx.translate(0,Math.sin(Game.t*0.09)*1.5);
+    Art.ribbon(ctx,bx,by,w,24,Art.PAL.greenDk);
+    Art.text(ctx,txt,bx,by,{size:11,color:Art.PAL.cream,stroke:2.5});
+    ctx.restore();
+  }
+
   // aviso depois de apagar
   if(Game.resetToast>0){
     Game.resetToast--;
@@ -1057,6 +1128,13 @@ function drawWeaponIcon(id,x,y,sc,color){
   ctx.restore();
 }
 
+// posicao e tamanho das cartas da loja, conforme a largura da tela
+function shopCard(i){
+  const gap = Math.min(190, (CFG.W-60)/3);
+  const ww  = Math.min(168, gap-14);
+  return {cx: CFG.W/2 + (i-1)*gap, ww: ww, y:70, h:196};
+}
+
 function shopStatus(w){
   if(Shop.equipped===w.id) return {txt:'EQUIPADA', color:Art.PAL.greenDk, can:false};
   if(Shop.has(w.id))       return {txt:'EQUIPAR',  color:Art.PAL.blueDk,  can:true};
@@ -1081,8 +1159,8 @@ function shopAction(i){
 
 function shopTap(x,y){
   for(let i=0;i<WEAPONS.length;i++){
-    const cx=110+i*(CFG.W-220)/2;
-    if(x>cx-84 && x<cx+84 && y>62 && y<270){
+    const c=shopCard(i);
+    if(x>c.cx-c.ww/2 && x<c.cx+c.ww/2 && y>62 && y<270){
       if(Game.shopIndex===i) shopAction(i);
       else { Game.shopIndex=i; Sound.sfx.select(); }
       return;
@@ -1147,10 +1225,10 @@ function drawShop(){
   ctx.restore();
 
   WEAPONS.forEach((w,i)=>{
-    const cx=110+i*(CFG.W-220)/2;
+    const c=shopCard(i);
+    const cx=c.cx, ww=c.ww, y=c.y, h=c.h;
     const sel=i===Game.shopIndex;
     const st=shopStatus(w);
-    const y=70, h=196, ww=168;
 
     ctx.save();
     if(sel) ctx.translate(0,Math.sin(t*0.09)*2-4);
@@ -1159,26 +1237,28 @@ function drawShop(){
 
     drawWeaponIcon(w.id,cx,y+40,sel?1.1:0.95,w.color);
 
-    Art.text(ctx,w.name,cx,y+78,{size:12,color:'#2a2018',stroke:0});
+    const nomeTam = ww<150 ? 10.5 : 12;
+    Art.text(ctx,w.name,cx,y+78,{size:nomeTam,color:'#2a2018',stroke:0});
     Art.text(ctx,w.sub,cx,y+92,{size:9.5,color:'#6a563f',stroke:0});
 
     // barrinhas de status
     const bars=[['DANO',w.bars.dano],['CADÊNCIA',w.bars.cadencia],['MIRA',w.bars.mira]];
+    const pip = Math.min(13, (ww-84)/5);
     bars.forEach((b,k)=>{
       const by=y+110+k*15;
-      Art.text(ctx,b[0],cx-64,by,{size:8.5,color:'#4a382b',stroke:0,align:'left'});
+      Art.text(ctx,b[0],cx-ww/2+8,by,{size:8.5,color:'#4a382b',stroke:0,align:'left'});
       for(let n=0;n<5;n++){
-        const px=cx-2+n*13;
+        const px=cx-ww/2+72+n*pip;
         ctx.fillStyle = n<b[1] ? w.color : 'rgba(28,20,16,.18)';
-        ctx.fillRect(px,by-4,10,8);
-        Art.ink(ctx,1.4); ctx.strokeRect(px,by-4,10,8);
+        ctx.fillRect(px,by-4,pip-3,8);
+        Art.ink(ctx,1.4); ctx.strokeRect(px,by-4,pip-3,8);
       }
     });
 
     // botão de estado
     ctx.save();
     ctx.globalAlpha = sel ? 1 : 0.9;
-    Art.ribbon(ctx,cx,y+172,140,22,st.color);
+    Art.ribbon(ctx,cx,y+172,Math.min(140,ww-20),22,st.color);
     Art.text(ctx,st.txt,cx,y+172,{size:11,color:P.cream,stroke:2.5});
     ctx.restore();
     ctx.restore();
@@ -1320,7 +1400,7 @@ function drawHowTo(){
     ['DASH',         'C, L ou Shift',   '-',                'DASH',     'B / RB'],
     ['PAUSA',        'Enter, P ou Esc', '-',                'II',       'Start']
   ];
-  const col=[52,150,270,400,480];
+  const col=[0.081,0.234,0.422,0.625,0.750].map(f => Math.round(f*CFG.W));
   Art.text(ctx,'AÇÃO',col[0],78,{size:11,color:Art.PAL.blueDk,stroke:0,align:'left'});
   Art.text(ctx,'TECLADO',col[1],78,{size:11,color:Art.PAL.blueDk,stroke:0,align:'left'});
   Art.text(ctx,'MOUSE',col[2],78,{size:11,color:Art.PAL.red,stroke:0,align:'left'});
@@ -1557,7 +1637,10 @@ canvas.addEventListener('pointerdown', e => {
 
   if(s==='title'){
     for(const h of Game.menuHit){
-      if(x>=h.x&&x<=h.x+h.w&&y>=h.y&&y<=h.y+h.h){ Game.menuIndex=h.i; chooseTitle(h.i); return; }
+      if(x>=h.x&&x<=h.x+h.w&&y>=h.y&&y<=h.y+h.h){
+        if(h.i===-1){ Sound.sfx.confirm(); instalarJogo(); return; }
+        Game.menuIndex=h.i; chooseTitle(h.i); return;
+      }
     }
   } else if(s==='pause'){
     for(const h of Game.menuHit){
@@ -1856,4 +1939,6 @@ document.addEventListener('visibilitychange', () => {
 });
 
 Art.buildGrain(CFG.W,CFG.H);
+jogoPronto = true;
+fitStage();
 requestAnimationFrame(loop);

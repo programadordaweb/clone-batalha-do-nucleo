@@ -81,8 +81,10 @@ const Input = (() => {
     if (!canvasEl) return;
     const r = canvasEl.getBoundingClientRect();
     if (!r.width || !r.height) return;
-    mouse.x = (e.clientX - r.left) * (640 / r.width);
-    mouse.y = (e.clientY - r.top)  * (360 / r.height);
+    const gw = (typeof CFG !== 'undefined') ? CFG.W : 640;
+    const gh = (typeof CFG !== 'undefined') ? CFG.H : 360;
+    mouse.x = (e.clientX - r.left) * (gw / r.width);
+    mouse.y = (e.clientY - r.top)  * (gh / r.height);
   }
 
   function bindMouse(){

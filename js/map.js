@@ -29,6 +29,10 @@ const WorldMap = (() => {
   ];
 
   const me = {x:126, y:215, face:1, anim:0, vx:0, vy:0};
+  // o mapa foi desenhado para 640 de largura: em telas largas fica centralizado,
+  // em telas estreitas encolhe um pouco para caber inteiro
+  const ZOOM = () => Math.min(1, CFG.W/640);
+  const OFF  = () => (CFG.W - 640*ZOOM()) / 2;
   let near = null;
   let t = 0;
   let toast = 0, toastMsg = '';
@@ -104,6 +108,8 @@ const WorldMap = (() => {
 
   // toque / clique direto num lugar do mapa
   function tap(x,y){
+    x = (x - OFF()) / ZOOM();
+    y = y / ZOOM();
     for(const n of NODES){
       if(Math.hypot(n.x-x, n.y-y) < 34){
         me.x=n.x; me.y=n.y;      // anda até lá
@@ -118,27 +124,35 @@ const WorldMap = (() => {
   }
 
   /* ---------------- DESENHO ---------------- */
-  function drawIsland(ctx){
-    const pal=P();
-    // "mesa" de fundo
+  function drawTableBg(ctx){
+    // a "mesa" do laboratorio ocupa a tela inteira (sem tarja preta)
     const grd=ctx.createLinearGradient(0,0,0,CFG.H);
     grd.addColorStop(0,'#5c4a37');
     grd.addColorStop(1,'#3a2d21');
     ctx.fillStyle=grd; ctx.fillRect(0,0,CFG.W,CFG.H);
+    // madeira da bancada
+    ctx.save(); ctx.globalAlpha=.10; ctx.strokeStyle='#1a1410'; ctx.lineWidth=2;
+    for(let y=18;y<CFG.H;y+=26){
+      ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(CFG.W,y+6); ctx.stroke();
+    }
+    ctx.restore();
+  }
 
+  function drawIsland(ctx){
+    const pal=P();
     // ilha = placa de Petri gigante
     ctx.save();
     ctx.globalAlpha=.35;
-    Art.ellipse(ctx,CFG.W/2,196,300,150,'#000',0);
+    Art.ellipse(ctx,320,196,300,150,'#000',0);
     ctx.restore();
-    Art.blob(ctx,CFG.W/2,190,296,146,'#e2efc8',5,20,2,3);
-    Art.blob(ctx,CFG.W/2,190,276,132,'#cde5ac',0,18,2,9);
+    Art.blob(ctx,320,190,296,146,'#e2efc8',5,20,2,3);
+    Art.blob(ctx,320,190,276,132,'#cde5ac',0,18,2,9);
 
     // colônias decorativas
     ctx.save(); ctx.globalAlpha=.35;
     for(let i=0;i<30;i++){
       const a=i*2.4, r=40+((i*53)%230);
-      const x=CFG.W/2+Math.cos(a)*r, y=190+Math.sin(a)*r*0.48;
+      const x=320+Math.cos(a)*r, y=190+Math.sin(a)*r*0.48;
       Art.circle(ctx,x,y,2+(i%4),'#7fa168',0);
     }
     ctx.restore();
@@ -339,6 +353,12 @@ const WorldMap = (() => {
 
   function draw(ctx,g){
     const pal=P();
+    drawTableBg(ctx);
+
+    // a ilha é desenhada centralizada na tela, seja ela larga ou estreita
+    ctx.save();
+    ctx.translate(OFF(),0);
+    ctx.scale(ZOOM(),ZOOM());
     drawIsland(ctx);
     drawPaths(ctx);
     drawGate(ctx);
@@ -353,6 +373,7 @@ const WorldMap = (() => {
     if(!drewMe) drawMe(ctx);
 
     FX.draw(ctx);
+    ctx.restore();
 
     // faixa do título
     Art.ribbon(ctx,CFG.W/2,22,286,26,pal.red);

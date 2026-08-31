@@ -6,6 +6,16 @@
 <meta name="theme-color" content="#1a1410">
 <meta name="description" content="CLONE! - jogo de ação estilo Cuphead sobre clonagem celular, mitose e DNA.">
 <title>CLONE! — A Batalha do Núcleo</title>
+
+<!-- instalável no celular (PWA) -->
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/favicon-64.png" sizes="64x64" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="CLONE!">
+
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -48,5 +58,14 @@
 <script src="js/boss.js" charset="utf-8"></script>
 <script src="js/map.js" charset="utf-8"></script>
 <script src="js/game.js" charset="utf-8"></script>
+
+<script>
+/* registra o service worker (deixa o jogo instalável e offline) */
+if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+  addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  });
+}
+</script>
 </body>
 </html>

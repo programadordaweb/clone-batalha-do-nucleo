@@ -446,7 +446,8 @@ class Boss {
     this.phases = def.hp.slice();
     this.phase=0;
     this.hp=this.phases[0]; this.maxHp=this.phases[0];
-    this.baseX=def.home[0][0]; this.baseY=def.home[0][1];
+    // as posicoes foram desenhadas numa tela de 640; aqui viram proporcao
+    this.baseX=def.home[0][0]*CFG.W/640; this.baseY=def.home[0][1];
     this.x=this.baseX; this.y=this.baseY;
     this.vx=0; this.vy=0;
     this.t=0;
@@ -465,6 +466,12 @@ class Boss {
   }
 
   get name(){ return this.def.name; }
+
+  // a tela mudou de largura: recalcula a casa do chefe
+  reposicionar(){
+    this.baseX = this.def.home[this.phase][0]*CFG.W/640;
+    this.x = Math.max(70, Math.min(CFG.W-70, this.x));
+  }
   get onGroundPhase(){ return this.kind==='dolly' && this.phase===0; }
 
   totalMax(){ return this.phases.reduce((a,b)=>a+b,0); }
@@ -514,7 +521,7 @@ class Boss {
     this.phase++;
     this.hp=this.phases[this.phase]; this.maxHp=this.phases[this.phase];
     this.state='fight'; this.atk=null; this.atkIdle=60;
-    this.baseX=this.def.home[this.phase][0];
+    this.baseX=this.def.home[this.phase][0]*CFG.W/640;
     this.baseY=this.def.home[this.phase][1];
     this.x=this.baseX; this.y=this.baseY;
     this.vx=0; this.vy=0;

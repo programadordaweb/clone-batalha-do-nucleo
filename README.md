@@ -9,10 +9,26 @@ Feito 100% em HTML5 + Canvas + JavaScript puro. **Sem instalação, sem internet
 
 ## Como abrir
 
-**No PC:** dê dois cliques em `index.html`. O jogo se ajusta sozinho à janela,
-sempre em proporção 16:9 (sem esticar e sem cortar). No menu há a opção **TELA CHEIA**.
+**No PC:** dê dois cliques em `index.html`. O jogo **preenche a janela inteira**
+(a largura da cena acompanha o formato da tela, então não sobra tarja preta) e
+**entra em tela cheia sozinho** no primeiro clique ou tecla — sem precisar apertar
+botão nenhum. Para sair, `Esc`; para voltar, a opção **TELA CHEIA** no menu.
 
-**No celular** (o áudio e o toque funcionam melhor por HTTP):
+### Instalar no celular (vira um app)
+
+O jogo é um **PWA**: dá para instalar na tela inicial do celular e jogar como
+aplicativo — em tela cheia, deitado, sem barra do navegador e **até sem internet**.
+
+1. Abra o jogo por um endereço **https://** (GitHub Pages, Netlify, Vercel...).
+   Pelo arquivo local (`file://`) o navegador não permite instalar.
+2. **Android (Chrome):** aparece o botão verde **INSTALAR NO CELULAR** na tela de
+   título; ou use o menu ⋮ → *Instalar aplicativo / Adicionar à tela inicial*.
+3. **iPhone (Safari):** botão Compartilhar → *Adicionar à Tela de Início*.
+
+Depois disso o ícone fica na tela inicial e o jogo abre direto em tela cheia.
+O `sw.js` guarda todos os arquivos no celular, então funciona offline.
+
+**No celular pela rede local** (sem instalar):
 
 1. No PC, dentro desta pasta, rode:
 
@@ -151,6 +167,9 @@ js/entities.js    jogador, tiros (inclusive teleguiados), partículas
 js/boss.js        NUCLEUS-9 e DOLLY-96, projéteis e clones
 js/map.js         a Ilha do Laboratório (mapa navegável)
 js/game.js        telas, loja, HUD, colisões, cartões educativos
+manifest.webmanifest  dados do app (nome, ícone, tela cheia, deitado)
+sw.js             service worker: guarda o jogo para rodar offline
+icons/            ícones do app (192, 512, maskable e Apple)
 ```
 
 Tudo é desenhado por código — não existe nenhuma imagem ou som em arquivo,
