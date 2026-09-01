@@ -193,7 +193,16 @@ const SCIENCE = [
   },
   {
     title:'REPRODUTIVA x TERAPÊUTICA',
-    body:'Clonagem reprodutiva quer formar um indivíduo completo. Clonagem terapêutica para no estágio de células-tronco, usadas para estudar doenças e criar tecidos compatíveis com o paciente - sem gerar um novo ser.'
+    topics:[
+      ['A DIFERENÇA',
+       'A reprodutiva quer formar um indivíduo. A terapêutica para no 5º dia e só retira as células-tronco, que viram qualquer tecido do corpo.'],
+      ['POR QUE AJUDA: TECIDO SEM REJEIÇÃO',
+       'O tecido novo tem o mesmo DNA do paciente: o corpo não rejeita e ele não precisa de imunossupressor a vida toda. Hoje se usa células iPS (Nobel 2012), sem embrião.'],
+      ['EXEMPLOS DE VERDADE',
+       'China, 2024: mulher com diabetes tipo 1 recebeu ilhotas feitas das PRÓPRIAS células e ficou sem insulina (revista Cell). Japão, 2025: 7 pacientes com Parkinson receberam neurônios de iPS, que produziram dopamina (revista Nature).'],
+      ['PORCOS CLONADOS PARA TRANSPLANTE',
+       'Porcos são editados e depois CLONADOS pela técnica da Dolly. Em 2025 começaram os testes clínicos com rins desses porcos em pacientes.']
+    ]
   },
   {
     title:'CLONE NÃO É CÓPIA IDÊNTICA',
@@ -273,6 +282,15 @@ const CREDITS = [
   {t:'item', s:'ONU. Declaração sobre a Clonagem Humana (2005).'},
   {t:'gap',  h:10},
   {t:'item', s:'BEAUCHAMP, T.; CHILDRESS, J. "Princípios de Ética Biomédica".'},
+  {t:'gap',  h:10},
+  {t:'item', s:'WANG, S. et al. Ilhotas de células-tronco do próprio paciente'},
+  {t:'item', s:'em diabetes tipo 1. Cell, 2024 (Universidade de Pequim).'},
+  {t:'gap',  h:10},
+  {t:'item', s:'SAWAMOTO, N.; TAKAHASHI, J. et al. Ensaio de células iPS para'},
+  {t:'item', s:'Parkinson. Nature, v. 641, 2025 (Universidade de Kyoto).'},
+  {t:'gap',  h:10},
+  {t:'item', s:'NYU LANGONE / FDA (2025). Primeiros ensaios clínicos com rins'},
+  {t:'item', s:'de porcos geneticamente editados - nyulangone.org'},
   {t:'gap',  h:10},
   {t:'item', s:'ALBERTS, B. et al. "Biologia Molecular da Célula".'},
   {t:'item', s:'Porto Alegre: Artmed. (mitose, DNA e replicação)'},
@@ -1469,7 +1487,7 @@ function quebraLinhas(str, maxW, size){
 function drawFichaBlocos(c){
   const P = Art.PAL;
   const x0 = 68, maxW = CFG.W - 136;
-  const topo = 78, fundo = 246;
+  const topo = 76, fundo = 270;
 
   // acha o maior tamanho de letra que faz tudo caber
   let size = 11, lh, blocos;
@@ -1477,7 +1495,7 @@ function drawFichaBlocos(c){
     lh = size * 1.28;
     blocos = c.topics.map(t => quebraLinhas(t[1], maxW, size));
     let h = 0;
-    for (const b of blocos) h += (size + 4) + b.length * lh + 7;
+    for (const b of blocos) h += (size + 4) + b.length * lh + 6;
     if (h <= fundo - topo) break;
   }
 
@@ -1489,7 +1507,7 @@ function drawFichaBlocos(c){
       Art.text(ctx, linha, x0, y, {size:size, color:'#2f241c', stroke:0, align:'left'});
       y += lh;
     }
-    y += 7;
+    y += 6;
   });
 }
 

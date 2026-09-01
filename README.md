@@ -158,6 +158,9 @@ a qualquer momento em **CRÉDITOS E FONTES**, no menu do título):
   - UNESCO. Declaração Universal sobre o Genoma Humano e os Direitos Humanos (1997), art. 11.
   - ONU. Declaração sobre a Clonagem Humana (2005).
   - BEAUCHAMP, T.; CHILDRESS, J. *Princípios de Ética Biomédica*.
+  - WANG, S. et al. Transplante de ilhotas derivadas de células-tronco do próprio paciente em diabetes tipo 1. *Cell*, 2024. cell.com
+  - Phase I/II trial of iPS-cell-derived dopaminergic cells for Parkinson's disease. *Nature*, 2025. nature.com/articles/s41586-025-08700-0
+  - NYU LANGONE HEALTH. Primeiro ensaio clínico de transplante de rim de porco geneticamente editado, 2025. nyulangone.org
   - ALBERTS, B. et al. *Biologia Molecular da Célula*. Porto Alegre: Artmed.
   - AMABIS, J. M.; MARTHO, G. R. *Biologia Moderna*. São Paulo: Moderna.
 
