@@ -222,8 +222,17 @@ const SCIENCE = [
     ]
   },
   {
-    title:'DOLLY, A OVELHA FAMOSA',
-    body:'O nome veio da cantora Dolly Parton, porque a célula usada era da glândula mamária. Ela viveu 6 anos e meio no Instituto Roslin, teve 6 filhotes e hoje está empalhada no Museu Nacional da Escócia. Sua morte foi por uma infecção de pulmão comum em ovelhas presas, e não por "envelhecimento de clone".'
+    title:'DOLLY: O CLONE ENVELHECE ANTES?',
+    topics:[
+      ['DE ONDE VEIO ESSA DÚVIDA',
+       'Telômeros são as pontas dos cromossomos: encurtam a cada divisão, como um relógio da célula. Em 1999 os de Dolly estavam mais curtos que o normal - será que ela nasceu já com os 6 anos da doadora?'],
+      ['POR QUE ELA MORREU AOS 6 ANOS',
+       'A raça dela (Finn Dorset) vive de 11 a 12 anos. Em 2003 Dolly foi sacrificada por um tumor de pulmão causado por um vírus comum em ovelhas de galpão - outras do rebanho adoeceram junto. Não foi velhice.'],
+      ['A CIÊNCIA RESPONDEU DEPOIS',
+       '2016: 13 ovelhas clonadas, 4 do mesmo material da Dolly, chegaram aos 7-9 anos com coração, pressão e insulina normais (Nature Communications). 2017: o raio-X dela mostrou artrite normal para a idade.'],
+      ['ENTÃO QUANTO DURA UM CLONE?',
+       'O esperado é o tempo normal da espécie: a gata CC, primeiro pet clonado, viveu 18 anos e teve filhotes saudáveis. O risco maior é no começo - muitos embriões não vingam.']
+    ]
   },
   {
     title:'POR QUE CLONAR É DIFÍCIL',
@@ -282,6 +291,15 @@ const CREDITS = [
   {t:'item', s:'ONU. Declaração sobre a Clonagem Humana (2005).'},
   {t:'gap',  h:10},
   {t:'item', s:'BEAUCHAMP, T.; CHILDRESS, J. "Princípios de Ética Biomédica".'},
+  {t:'gap',  h:10},
+  {t:'item', s:'SINCLAIR, K. et al. "Healthy ageing of cloned sheep".'},
+  {t:'item', s:'Nature Communications, 2016 (Universidade de Nottingham).'},
+  {t:'gap',  h:10},
+  {t:'item', s:'Radiographic assessment of the skeletons of Dolly and other'},
+  {t:'item', s:'clones. Scientific Reports, 2017.'},
+  {t:'gap',  h:10},
+  {t:'item', s:'TEXAS A&M UNIVERSITY (2020). CC, o primeiro pet clonado,'},
+  {t:'item', s:'morreu aos 18 anos - stories.tamu.edu'},
   {t:'gap',  h:10},
   {t:'item', s:'WANG, S. et al. Ilhotas de células-tronco do próprio paciente'},
   {t:'item', s:'em diabetes tipo 1. Cell, 2024 (Universidade de Pequim).'},
