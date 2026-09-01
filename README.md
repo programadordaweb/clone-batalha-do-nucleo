@@ -132,13 +132,18 @@ Cada um tem 3 fases e um cartão explicando a ciência antes de cada fase.
 | 2 | Máquina de SCNT | **Como se clona**: tira o núcleo do óvulo, injeta o núcleo adulto, choque elétrico | Micropipeta (raio vertical), chuva de óvulos, fusão elétrica, placas de Petri |
 | 3 | O rebanho | **277 tentativas para 1 Dolly** | Debandada de clones, tempestade de lã, méééga balido, cópias da Dolly |
 
-No menu há ainda **CIÊNCIA DA CLONAGEM**, com 10 fichas de estudo: o que é
-clonagem, clones naturais, mitose × meiose, como acontece, quais são os
-benefícios (com casos reais de 2024 e 2025), clone não é cópia idêntica,
-**ética e lei** (o que é ética, por que humanos não e animais sim, a Lei de
-Biossegurança 11.105/2005 e as regras das células-tronco), **a ovelha Dolly**
-(o nome, as três "mães" e a questão do envelhecimento do clone), riscos e
-limitações e para que serve.
+No menu há ainda **CIÊNCIA DA CLONAGEM**, com 10 fichas de estudo nesta ordem:
+
+1. **O QUE É CLONAGEM?**
+2. **COMO ACONTECE** — os 4 passos da transferência nuclear
+3. **PARA QUE SERVE** — usos na pecuária, em remédios e na preservação de espécies
+4. **QUAIS SÃO OS BENEFÍCIOS** — tecido sem rejeição, casos reais de 2024/2025 e os porcos clonados
+5. **QUAIS SÃO OS RISCOS E LIMITAÇÕES** — por que é difícil e o que é bem-estar animal (as 5 liberdades)
+6. **EXISTEM QUESTÕES ÉTICAS** — o que é ética, por que humanos não e animais sim, a Lei 11.105/2005 e as regras das células-tronco
+7. **CLONES NATURAIS EXISTEM**
+8. **MITOSE x MEIOSE**
+9. **CLONE NÃO É CÓPIA IDÊNTICA**
+10. **A OVELHA DOLLY** — o nome, as três "mães" e a questão do envelhecimento do clone
 
 Dificuldade: **ESTAGIÁRIO** (4 vidas) ou **CIENTISTA** (3 vidas, inimigos mais rápidos).
 

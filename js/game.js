@@ -180,16 +180,12 @@ const SCIENCE = [
     body:'Clonagem é produzir um ser vivo (ou uma célula) com o mesmo material genético de outro. O clone não surge da união de dois gametas: ele é cópia do DNA de um único doador.'
   },
   {
-    title:'CLONES NATURAIS EXISTEM',
-    body:'Gêmeos univitelinos são clones naturais: um mesmo embrião se divide em dois. Bactérias, morangos que se espalham por estolhos e estrelas-do-mar também se multiplicam sem reprodução sexuada.'
-  },
-  {
-    title:'MITOSE x MEIOSE',
-    body:'Mitose: 1 célula gera 2 idênticas, com o mesmo número de cromossomos - crescimento e reparo. Meiose: gera 4 células com metade dos cromossomos (gametas) e MISTURA os genes - por isso irmãos não são iguais.'
-  },
-  {
     title:'COMO ACONTECE',
     body:'1) Tira-se o núcleo de um óvulo, que fica sem DNA. 2) Coloca-se no lugar o núcleo de uma célula adulta do doador. 3) Um choque elétrico funde as duas partes e a divisão começa. 4) O embrião é implantado numa barriga de aluguel. O filhote nasce com o mesmo DNA do doador.'
+  },
+  {
+    title:'PARA QUE SERVE',
+    body:'Clonagem ajuda a multiplicar animais de interesse, produzir remédios (como insulina em bactérias clonadas), preservar espécies ameaçadas e pesquisar tratamentos. Também levanta debates sobre bem-estar animal e limites da ciência.'
   },
   {
     title:'QUAIS SÃO OS BENEFÍCIOS',
@@ -205,11 +201,18 @@ const SCIENCE = [
     ]
   },
   {
-    title:'CLONE NÃO É CÓPIA IDÊNTICA',
-    body:'Mesmo DNA não significa mesma pessoa. Ambiente, alimentação, experiências e a epigenética (marcas químicas que ligam e desligam genes) mudam aparência e comportamento. Até as manchas de um gato clonado saem diferentes.'
+    title:'QUAIS SÃO OS RISCOS E LIMITAÇÕES',
+    topics:[
+      ['POR QUE É TÃO DIFÍCIL',
+       'O núcleo adulto precisa ser "reprogramado" para agir como o de um embrião, e quase nunca dá certo: na Dolly foram 277 óvulos reconstruídos, 29 embriões e 1 nascimento. Por isso é caro e demorado.'],
+      ['O QUE É BEM-ESTAR ANIMAL',
+       'É o quanto o animal está bem, no corpo e no comportamento. A regra das 5 LIBERDADES: sem fome e sede, sem dor e doença, sem desconforto, sem medo e stress, e livre para se comportar como a espécie dele se comporta.'],
+      ['ONDE ISSO PESA NA CLONAGEM',
+       'Muitas fêmeas viram barriga de aluguel, várias gestações se perdem e alguns filhotes nascem grandes demais, com problemas de coração e pulmão. Por isso todo projeto precisa passar pela comissão de ética (CEUA).']
+    ]
   },
   {
-    title:'ÉTICA E LEI',
+    title:'EXISTEM QUESTÕES ÉTICAS',
     topics:[
       ['O QUE É ÉTICA',
        'É a reflexão sobre o certo e o errado. A moral são os costumes de um grupo; a lei obriga. A bioética aplica isso à saúde com 4 princípios: autonomia, beneficência, não maleficência e justiça.'],
@@ -220,6 +223,18 @@ const SCIENCE = [
       ['COMO REGULAM AS CÉLULAS-TRONCO',
        'Art. 5º: só embriões que sobraram da fertilização in vitro, inviáveis ou congelados há 3 anos ou mais, com autorização dos pais, aprovação do comitê de ética (CEP) e proibida a venda. O STF confirmou a regra em 2008. Hoje as células iPS (Nobel 2012) fazem o mesmo sem usar embriões.']
     ]
+  },
+  {
+    title:'CLONES NATURAIS EXISTEM',
+    body:'Gêmeos univitelinos são clones naturais: um mesmo embrião se divide em dois. Bactérias, morangos que se espalham por estolhos e estrelas-do-mar também se multiplicam sem reprodução sexuada.'
+  },
+  {
+    title:'MITOSE x MEIOSE',
+    body:'Mitose: 1 célula gera 2 idênticas, com o mesmo número de cromossomos - crescimento e reparo. Meiose: gera 4 células com metade dos cromossomos (gametas) e MISTURA os genes - por isso irmãos não são iguais.'
+  },
+  {
+    title:'CLONE NÃO É CÓPIA IDÊNTICA',
+    body:'Mesmo DNA não significa mesma pessoa. Ambiente, alimentação, experiências e a epigenética (marcas químicas que ligam e desligam genes) mudam aparência e comportamento. Até as manchas de um gato clonado saem diferentes.'
   },
   {
     title:'A OVELHA DOLLY',
@@ -233,21 +248,6 @@ const SCIENCE = [
       ['QUANTO DURA UM CLONE',
        '2016: 13 ovelhas clonadas chegaram aos 7-9 anos saudáveis (Nature Communications) e o raio-X de 2017 mostrou artrite normal para a idade. A gata CC, primeiro pet clonado, viveu 18 anos.']
     ]
-  },
-  {
-    title:'RISCOS E LIMITAÇÕES',
-    topics:[
-      ['POR QUE É TÃO DIFÍCIL',
-       'O núcleo adulto precisa ser "reprogramado" para agir como o de um embrião, e quase nunca dá certo: na Dolly foram 277 óvulos reconstruídos, 29 embriões e 1 nascimento. Por isso é caro e demorado.'],
-      ['O QUE É BEM-ESTAR ANIMAL',
-       'É o quanto o animal está bem, no corpo e no comportamento. A regra das 5 LIBERDADES: sem fome e sede, sem dor e doença, sem desconforto, sem medo e stress, e livre para se comportar como a espécie dele se comporta.'],
-      ['ONDE ISSO PESA NA CLONAGEM',
-       'Muitas fêmeas viram barriga de aluguel, várias gestações se perdem e alguns filhotes nascem grandes demais, com problemas de coração e pulmão. Por isso todo projeto precisa passar pela comissão de ética (CEUA).']
-    ]
-  },
-  {
-    title:'PARA QUE SERVE',
-    body:'Clonagem ajuda a multiplicar animais de interesse, produzir remédios (como insulina em bactérias clonadas), preservar espécies ameaçadas e pesquisar tratamentos. Também levanta debates sobre bem-estar animal e limites da ciência.'
   }
 ];
 
@@ -1548,8 +1548,10 @@ function drawScience(){
   const c=SCIENCE[Game.sciIndex];
   Art.cardFrame(ctx,46,30,CFG.W-92,CFG.H-84,Art.PAL.paper);
 
-  Art.ribbon(ctx,CFG.W/2,52,Math.min(CFG.W-140,Art.measure(ctx,c.title,20)+70),28,Art.PAL.green);
-  Art.text(ctx,c.title,CFG.W/2,52,{size:17,color:Art.PAL.cream,stroke:3});
+  let tsz = 17;
+  while (tsz > 11 && Art.measure(ctx,c.title,tsz) > CFG.W-180) tsz -= 0.5;
+  Art.ribbon(ctx,CFG.W/2,52,Math.min(CFG.W-120,Art.measure(ctx,c.title,tsz)+70),28,Art.PAL.green);
+  Art.text(ctx,c.title,CFG.W/2,52,{size:tsz,color:Art.PAL.cream,stroke:3});
 
   if(c.topics){
     drawFichaBlocos(c);
