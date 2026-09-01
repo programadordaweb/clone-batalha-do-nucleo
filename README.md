@@ -160,6 +160,7 @@ a qualquer momento em **CRÉDITOS E FONTES**, no menu do título):
   - UNESCO. Declaração Universal sobre o Genoma Humano e os Direitos Humanos (1997), art. 11.
   - ONU. Declaração sobre a Clonagem Humana (2005).
   - BEAUCHAMP, T.; CHILDRESS, J. *Princípios de Ética Biomédica*.
+  - FARM ANIMAL WELFARE COUNCIL (Reino Unido). As cinco liberdades do bem-estar animal, 1979.
   - SINCLAIR, K. et al. Healthy ageing of cloned sheep. *Nature Communications*, 2016.
   - Radiographic assessment of the skeletons of Dolly and other clones finds no abnormal osteoarthritis. *Scientific Reports*, 2017.
   - TEXAS A&M UNIVERSITY. World's first cloned cat (CC) dies at 18, 2020. stories.tamu.edu

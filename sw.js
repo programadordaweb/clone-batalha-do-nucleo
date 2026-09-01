@@ -3,7 +3,7 @@
    Depois de abrir uma vez, o celular guarda tudo e o jogo roda
    mesmo sem internet.
    ============================================================ */
-const CACHE = 'clone-v9';
+const CACHE = 'clone-v10';
 
 const ARQUIVOS = [
   './',

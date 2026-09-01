@@ -236,7 +236,14 @@ const SCIENCE = [
   },
   {
     title:'RISCOS E LIMITAÇÕES',
-    body:'O núcleo adulto precisa ser "reprogramado" para agir como o de um embrião. Isso quase nunca dá certo: no caso da Dolly foram 277 óvulos reconstruídos, 29 embriões e 1 nascimento. Por isso a clonagem é cara, demorada e levanta questões de bem-estar animal.'
+    topics:[
+      ['POR QUE É TÃO DIFÍCIL',
+       'O núcleo adulto precisa ser "reprogramado" para agir como o de um embrião, e quase nunca dá certo: na Dolly foram 277 óvulos reconstruídos, 29 embriões e 1 nascimento. Por isso é caro e demorado.'],
+      ['O QUE É BEM-ESTAR ANIMAL',
+       'É o quanto o animal está bem, no corpo e no comportamento. A regra das 5 LIBERDADES: sem fome e sede, sem dor e doença, sem desconforto, sem medo e stress, e livre para se comportar como a espécie dele se comporta.'],
+      ['ONDE ISSO PESA NA CLONAGEM',
+       'Muitas fêmeas viram barriga de aluguel, várias gestações se perdem e alguns filhotes nascem grandes demais, com problemas de coração e pulmão. Por isso todo projeto precisa passar pela comissão de ética (CEUA).']
+    ]
   },
   {
     title:'PARA QUE SERVE',
@@ -291,6 +298,9 @@ const CREDITS = [
   {t:'item', s:'ONU. Declaração sobre a Clonagem Humana (2005).'},
   {t:'gap',  h:10},
   {t:'item', s:'BEAUCHAMP, T.; CHILDRESS, J. "Princípios de Ética Biomédica".'},
+  {t:'gap',  h:10},
+  {t:'item', s:'FARM ANIMAL WELFARE COUNCIL (Reino Unido). As cinco liberdades'},
+  {t:'item', s:'do bem-estar animal, 1979.'},
   {t:'gap',  h:10},
   {t:'item', s:'SINCLAIR, K. et al. "Healthy ageing of cloned sheep".'},
   {t:'item', s:'Nature Communications, 2016 (Universidade de Nottingham).'},
