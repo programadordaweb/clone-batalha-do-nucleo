@@ -201,7 +201,16 @@ const SCIENCE = [
   },
   {
     title:'ÉTICA E LEI',
-    body:'A clonagem reprodutiva humana é proibida na maioria dos países. No Brasil, a Lei de Biossegurança (11.105/2005) proíbe clonagem humana e regula a pesquisa com células-tronco embrionárias.'
+    topics:[
+      ['O QUE É ÉTICA',
+       'É a reflexão sobre o certo e o errado. A moral são os costumes de um grupo; a lei obriga. A bioética aplica isso à saúde com 4 princípios: autonomia, beneficência, não maleficência e justiça.'],
+      ['POR QUE HUMANOS NÃO E ANIMAIS SIM',
+       'Clonar uma pessoa fere a dignidade (ela viraria um produto), o clone não pode consentir e a técnica ainda falha muito. Em animais é permitido, mas só com aprovação da comissão de ética (CEUA) e sem maus-tratos - Lei 11.794/2008.'],
+      ['A LEI BRASILEIRA',
+       'Lei 11.105/2005 (Biossegurança), art. 6º: proíbe a clonagem humana, tanto a reprodutiva quanto a terapêutica. A pena é de 2 a 5 anos de reclusão (art. 26). ONU (2005) e UNESCO (1997) também condenam clonar pessoas.'],
+      ['COMO REGULAM AS CÉLULAS-TRONCO',
+       'Art. 5º: só embriões que sobraram da fertilização in vitro, inviáveis ou congelados há 3 anos ou mais, com autorização dos pais, aprovação do comitê de ética (CEP) e proibida a venda. O STF confirmou a regra em 2008. Hoje as células iPS (Nobel 2012) fazem o mesmo sem usar embriões.']
+    ]
   },
   {
     title:'DOLLY, A OVELHA FAMOSA',
@@ -253,6 +262,17 @@ const CREDITS = [
   {t:'gap',  h:10},
   {t:'item', s:'BRASIL. Lei nº 11.105, de 24 de março de 2005'},
   {t:'item', s:'(Lei de Biossegurança) - planalto.gov.br'},
+  {t:'gap',  h:10},
+  {t:'item', s:'BRASIL. Lei nº 11.794/2008 (uso científico de animais)'},
+  {t:'item', s:'e Lei nº 9.605/1998, art. 32 - planalto.gov.br'},
+  {t:'gap',  h:10},
+  {t:'item', s:'STF. ADI 3510/DF, rel. Min. Carlos Ayres Britto, 29/05/2008'},
+  {t:'item', s:'(libera a pesquisa com células-tronco) - portal.stf.jus.br'},
+  {t:'gap',  h:10},
+  {t:'item', s:'UNESCO. Declaração Universal sobre o Genoma Humano (1997), art. 11.'},
+  {t:'item', s:'ONU. Declaração sobre a Clonagem Humana (2005).'},
+  {t:'gap',  h:10},
+  {t:'item', s:'BEAUCHAMP, T.; CHILDRESS, J. "Princípios de Ética Biomédica".'},
   {t:'gap',  h:10},
   {t:'item', s:'ALBERTS, B. et al. "Biologia Molecular da Célula".'},
   {t:'item', s:'Porto Alegre: Artmed. (mitose, DNA e replicação)'},
@@ -1428,6 +1448,51 @@ function drawHowTo(){
     CFG.W/2,CFG.H-22,{size:11,color:Art.PAL.cream,stroke:3});
 }
 
+// quebra um texto em linhas que cabem na largura pedida
+function quebraLinhas(str, maxW, size){
+  ctx.save();
+  ctx.font = '600 ' + size + 'px "Trebuchet MS", Verdana, sans-serif';
+  const palavras = str.split(' ');
+  const linhas = [];
+  let linha = '';
+  for (const p of palavras){
+    const teste = linha ? linha + ' ' + p : p;
+    if (ctx.measureText(teste).width > maxW && linha){ linhas.push(linha); linha = p; }
+    else linha = teste;
+  }
+  if (linha) linhas.push(linha);
+  ctx.restore();
+  return linhas;
+}
+
+// ficha em blocos (usada pela ficha de ÉTICA E LEI)
+function drawFichaBlocos(c){
+  const P = Art.PAL;
+  const x0 = 68, maxW = CFG.W - 136;
+  const topo = 78, fundo = 246;
+
+  // acha o maior tamanho de letra que faz tudo caber
+  let size = 11, lh, blocos;
+  for (; size >= 8; size -= 0.5){
+    lh = size * 1.28;
+    blocos = c.topics.map(t => quebraLinhas(t[1], maxW, size));
+    let h = 0;
+    for (const b of blocos) h += (size + 4) + b.length * lh + 7;
+    if (h <= fundo - topo) break;
+  }
+
+  let y = topo;
+  c.topics.forEach((t, i) => {
+    Art.text(ctx, t[0], x0, y, {size:size+0.5, color:P.red, stroke:0, align:'left'});
+    y += size + 4;
+    for (const linha of blocos[i]){
+      Art.text(ctx, linha, x0, y, {size:size, color:'#2f241c', stroke:0, align:'left'});
+      y += lh;
+    }
+    y += 7;
+  });
+}
+
 function drawScience(){
   drawBackground();
   ctx.save(); ctx.globalAlpha=.55; ctx.fillStyle=Art.PAL.ink; ctx.fillRect(0,0,CFG.W,CFG.H); ctx.restore();
@@ -1438,20 +1503,24 @@ function drawScience(){
   Art.ribbon(ctx,CFG.W/2,52,Math.min(CFG.W-140,Art.measure(ctx,c.title,20)+70),28,Art.PAL.green);
   Art.text(ctx,c.title,CFG.W/2,52,{size:17,color:Art.PAL.cream,stroke:3});
 
-  Art.paragraph(ctx,c.body,CFG.W/2,96,CFG.W-160,{size:13,color:'#2f241c',align:'center',lh:20});
+  if(c.topics){
+    drawFichaBlocos(c);
+  } else {
+    Art.paragraph(ctx,c.body,CFG.W/2,96,CFG.W-160,{size:13,color:'#2f241c',align:'center',lh:20});
 
-  // desenho decorativo: celula se dividindo
-  const t=Game.t;
-  ctx.save();
-  ctx.translate(CFG.W/2,222);
-  const sep=Math.abs(Math.sin(t*0.02))*16+8;
-  Art.blob(ctx,-sep,0,18,17,'rgba(150,205,225,.85)',2.5,11,4,1);
-  Art.blob(ctx, sep,0,18,17,'rgba(150,205,225,.85)',2.5,11,4,2);
-  Art.circle(ctx,-sep,0,7,'rgba(125,95,158,.9)',2);
-  Art.circle(ctx, sep,0,7,'rgba(125,95,158,.9)',2);
-  ctx.restore();
+    // desenho decorativo: celula se dividindo
+    const t=Game.t;
+    ctx.save();
+    ctx.translate(CFG.W/2,222);
+    const sep=Math.abs(Math.sin(t*0.02))*16+8;
+    Art.blob(ctx,-sep,0,18,17,'rgba(150,205,225,.85)',2.5,11,4,1);
+    Art.blob(ctx, sep,0,18,17,'rgba(150,205,225,.85)',2.5,11,4,2);
+    Art.circle(ctx,-sep,0,7,'rgba(125,95,158,.9)',2);
+    Art.circle(ctx, sep,0,7,'rgba(125,95,158,.9)',2);
+    ctx.restore();
+  }
 
-  Art.text(ctx,(Game.sciIndex+1)+' / '+SCIENCE.length,CFG.W/2,258,{size:11,color:'#4a382b',stroke:0});
+  Art.text(ctx,(Game.sciIndex+1)+' / '+SCIENCE.length,CFG.W/2,c.topics?282:258,{size:11,color:'#4a382b',stroke:0});
 
   Art.text(ctx, touchMode()? 'TOQUE NOS LADOS PARA MUDAR  -  TOQUE NO CENTRO PARA VOLTAR'
                         : 'SETAS < >  MUDAR   -   ESC VOLTA PARA ' + (Game.sciFrom==='map'?'O MAPA':'O MENU'),

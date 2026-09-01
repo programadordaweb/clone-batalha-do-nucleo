@@ -129,7 +129,9 @@ Cada um tem 3 fases e um cartão explicando a ciência antes de cada fase.
 
 No menu há ainda **CIÊNCIA DA CLONAGEM**: 10 fichas de estudo (clones naturais,
 mitose × meiose, como Dolly foi feita, reprodutiva × terapêutica, epigenética,
-por que clonar é difícil, ética e a Lei de Biossegurança 11.105/2005).
+por que clonar é difícil e uma ficha completa de **ética e lei**: o que é ética,
+por que humanos não podem ser clonados e animais sim, a Lei de Biossegurança
+11.105/2005 e as regras da pesquisa com células-tronco).
 
 Dificuldade: **ESTAGIÁRIO** (4 vidas) ou **CIENTISTA** (3 vidas, inimigos mais rápidos).
 
@@ -151,6 +153,11 @@ a qualquer momento em **CRÉDITOS E FONTES**, no menu do título):
   - NATIONAL HUMAN GENOME RESEARCH INSTITUTE (NIH). *Cloning Fact Sheet*. genome.gov
   - NATIONAL MUSEUMS SCOTLAND. *Dolly the sheep*. nms.ac.uk
   - BRASIL. Lei nº 11.105, de 24 de março de 2005 (Lei de Biossegurança). planalto.gov.br
+  - BRASIL. Lei nº 11.794/2008 (Lei Arouca) e Lei nº 9.605/1998, art. 32. planalto.gov.br
+  - STF. ADI 3510/DF, rel. Min. Carlos Ayres Britto, j. 29/05/2008. portal.stf.jus.br
+  - UNESCO. Declaração Universal sobre o Genoma Humano e os Direitos Humanos (1997), art. 11.
+  - ONU. Declaração sobre a Clonagem Humana (2005).
+  - BEAUCHAMP, T.; CHILDRESS, J. *Princípios de Ética Biomédica*.
   - ALBERTS, B. et al. *Biologia Molecular da Célula*. Porto Alegre: Artmed.
   - AMABIS, J. M.; MARTHO, G. R. *Biologia Moderna*. São Paulo: Moderna.
 
