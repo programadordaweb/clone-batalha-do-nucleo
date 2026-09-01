@@ -46,16 +46,21 @@ Também funciona hospedado em qualquer lugar (GitHub Pages, Netlify, Vercel) —
 
 ## Controles (as quatro formas funcionam ao mesmo tempo)
 
-| Ação | Teclado | **Mouse** | Celular | Controle |
+| Ação | Teclado | **Mouse** | **Celular** | Controle |
 |---|---|---|---|---|
-| Mover | Setas ou `A` `D` | — | D‑pad na tela | Analógico / direcional |
-| Mirar | `↑` `↓` | **mover o cursor** (mira livre 360°) | Setas cima/baixo | Analógico |
-| Atirar | `Z` ou `J` | **BOTÃO ESQUERDO** | Botão TIRO | X (Xbox) / Quadrado |
-| Super | `V` ou `I` | **BOTÃO DIREITO** | Botão SUPER | Y / LB |
-| Pular | `X`, `K` ou `Espaço` | — | Botão PULO | A (Xbox) / X (PS) |
-| Dash | `C`, `L` ou `Shift` | — | Botão DASH | B / RB |
-| Pausar | `Enter`, `P` ou `Esc` | — | Botão **II** | Start |
-| Menus | Setas + `Enter` | clique | toque na opção | Direcional + A |
+| Mover | Setas ou `A` `D` | — | **analógico esquerdo** | Analógico / direcional |
+| Atirar | `Z` ou `J` | **BOTÃO ESQUERDO** | **analógico direito** | **R2 / RT** (ou X / Quadrado) |
+| Mirar | `↑` `↓` | **mover o cursor** (360°) | **analógico direito** (360°) | Analógico |
+| Pular | `X`, `K` ou `Espaço` | — | botão PULO (borda de cima) | A (Xbox) / X (PS) |
+| Dash | `C`, `L` ou `Shift` | — | botão DASH (borda de cima) | B / R1 |
+| Super | `V` ou `I` | **BOTÃO DIREITO** | botão SUPER (borda de cima) | Y / L1 |
+| Pausar | `Enter`, `P` ou `Esc` | — | botão **II** (embaixo, no meio) | Start |
+| Menus / mapa | Setas + `Enter` | clique | toque na opção | Direcional + A |
+
+No celular os dois analógicos são **flutuantes**: eles nascem onde o dedo encosta —
+metade esquerda para andar, metade direita para mirar e atirar ao mesmo tempo
+(como um jogo de twin-stick). Os botões de PULO, DASH e SUPER ficam na borda de
+cima, onde os dedos indicadores apoiam com o celular deitado.
 
 ### A interface troca sozinha
 O jogo percebe o que você está usando e se adapta na hora:

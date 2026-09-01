@@ -48,13 +48,51 @@ canvas#game{
   z-index:10;
 }
 
-#touch .pad-left,
-#touch .pad-right{
-  position:absolute; bottom:2.5%;
-  pointer-events:none;
+/* ---------- ANALOGICOS VIRTUAIS ---------- */
+.stick-zone{
+  position:absolute; bottom:0;
+  width:42%; height:70%;
+  pointer-events:auto;
+  touch-action:none;
 }
-#touch .pad-left { left:1.5%; width:30%; height:46%; }
-#touch .pad-right{ right:1.5%; width:33%; height:48%; }
+.stick-zone.left { left:0; }
+.stick-zone.right{ right:0; }
+
+.stick-hint{
+  position:absolute; left:50%; bottom:24%;
+  transform:translateX(-50%);
+  font-size:clamp(7px,1.5vw,12px);
+  font-weight:800; letter-spacing:1px;
+  color:rgba(28,20,16,.42);
+  text-shadow:0 1px 0 rgba(255,255,255,.35);
+  white-space:nowrap;
+  transition:opacity .2s;
+}
+.stick-zone.on .stick-hint{ opacity:0; }
+
+.stick-base, .stick-knob{
+  position:absolute; left:0; top:0;
+  border-radius:50%;
+  border:3px solid #1a1410;
+  opacity:0;
+  transition:opacity .12s;
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+}
+.stick-base{
+  width:var(--stickd, 120px); height:var(--stickd, 120px);
+  background:rgba(244,230,200,.22);
+}
+.stick-knob{
+  width:calc(var(--stickd, 120px) * .46); height:calc(var(--stickd, 120px) * .46);
+  background:rgba(244,230,200,.55);
+  box-shadow:0 2px 6px rgba(0,0,0,.35);
+}
+.stick-zone.on .stick-base,
+.stick-zone.on .stick-knob{ opacity:1; }
+
+.stick-zone.right .stick-base{ background:rgba(226,120,60,.22); }
+.stick-zone.right .stick-knob{ background:rgba(226,120,60,.62); }
 
 .tbtn{
   position:absolute;
@@ -76,27 +114,23 @@ canvas#game{
 .tbtn span{ pointer-events:none; }
 .tbtn.pressed{ background:rgba(226,90,62,.75); color:#fff5e0; transform:scale(.92); }
 
-/* D-PAD em cruz */
-.dpad{ width:26%; aspect-ratio:1/1; font-size:clamp(12px,3.4vw,26px); }
-.dpad[data-act="left"] { left:0;     top:37%; }
-.dpad[data-act="right"]{ left:52%;   top:37%; }
-.dpad[data-act="up"]   { left:26%;   top:8%;  }
-.dpad[data-act="down"] { left:26%;   top:66%; }
+/* botoes de "ombro", na borda de cima (onde ficam os dedos indicadores) */
+.sh{
+  top:2%; height:14%;
+  border-radius:999px;
+  font-size:clamp(7px,1.6vw,13px);
+}
+.sh-jump { right:2%;  width:17%; background:rgba(120,200,140,.34); }
+.sh-dash { right:21%; width:14%; background:rgba(110,160,220,.34); }
+.sh-super{ right:37%; width:15%; background:rgba(220,110,190,.34); }
 
-/* botões de ação */
-.act{ font-size:clamp(7px,1.7vw,13px); }
-.a-jump { width:30%; aspect-ratio:1/1; right:2%;  bottom:4%;  background:rgba(120,200,140,.32); }
-.a-shoot{ width:30%; aspect-ratio:1/1; right:33%; bottom:16%; background:rgba(226,120,60,.32); }
-.a-dash { width:23%; aspect-ratio:1/1; right:5%;  bottom:48%; background:rgba(110,160,220,.32); }
-.a-super{ width:23%; aspect-ratio:1/1; right:36%; bottom:54%; background:rgba(220,110,190,.32); }
-
+/* pausa no topo, entre o HUD e os botoes de ombro */
 .sys{
-  position:absolute; top:2%; right:1.4%;
-  width:7%; aspect-ratio:1/1;
+  top:2%; left:23%;
+  width:6%; aspect-ratio:1/1;
   border-radius:8px;
   font-size:clamp(8px,2vw,16px);
   background:rgba(244,230,200,.22);
-  pointer-events:auto;
 }
 
 /* ============================================================

@@ -12,7 +12,8 @@ const Input = (() => {
   const blank = () => ACTIONS.reduce((o,a)=>(o[a]=false,o), {});
 
   const kb   = blank();   // teclado
-  const tc   = blank();   // toque
+  const tc   = blank();   // toque (botoes)
+  const stk  = blank();   // analogicos virtuais do celular
   const gp   = blank();   // controle
   const ms   = blank();   // mouse
   const held = blank();
@@ -32,6 +33,9 @@ const Input = (() => {
   }
 
   const mouse = {x:320, y:180};
+
+  // mira do analogico direito do celular
+  const aimStick = {active:false, ang:0, mag:0};
 
   /* ---------- TECLADO ---------- */
   const KEYMAP = {
@@ -162,6 +166,104 @@ const Input = (() => {
     });
   }
 
+  /* ---------- ANALÓGICOS VIRTUAIS (celular) ----------
+     Esquerdo: andar.   Direito: mirar e atirar ao mesmo tempo.      */
+  const STK = {
+    move: {zone:null, base:null, knob:null, id:null, ox:0, oy:0, dx:0, dy:0, R:60, on:false},
+    aim:  {zone:null, base:null, knob:null, id:null, ox:0, oy:0, dx:0, dy:0, R:60, on:false}
+  };
+
+  function raio(zone){
+    const r = zone.getBoundingClientRect();
+    return Math.max(32, Math.min(72, Math.min(r.width, r.height) * 0.26));
+  }
+
+  function desenhaStick(st){
+    if (!st.base) return;
+    const r = st.zone.getBoundingClientRect();
+    const bx = st.ox - r.left, by = st.oy - r.top;
+    st.base.style.left = bx + 'px';
+    st.base.style.top  = by + 'px';
+    st.knob.style.left = (bx + st.dx * st.R) + 'px';
+    st.knob.style.top  = (by + st.dy * st.R) + 'px';
+  }
+
+  function ligaStick(st){
+    st.on = true;
+    st.zone.classList.add('on');
+    st.zone.style.setProperty('--stickd', (st.R * 2) + 'px');
+  }
+
+  function soltaStick(st){
+    st.on = false; st.id = null; st.dx = 0; st.dy = 0;
+    if (st.zone) st.zone.classList.remove('on');
+  }
+
+  function bindStick(st, id){
+    const zone = document.getElementById(id);
+    if (!zone) return;
+    st.zone = zone;
+    st.base = zone.querySelector('.stick-base');
+    st.knob = zone.querySelector('.stick-knob');
+
+    zone.addEventListener('pointerdown', e => {
+      e.preventDefault();
+      st.id = e.pointerId;
+      st.R  = raio(zone);
+      st.ox = e.clientX; st.oy = e.clientY;
+      st.dx = 0; st.dy = 0;
+      ligaStick(st);
+      desenhaStick(st);
+      setDevice('touch'); usingMouse = false;
+      if (navigator.vibrate) navigator.vibrate(6);
+      try { zone.setPointerCapture(e.pointerId); } catch(_){}
+    }, {passive:false});
+
+    zone.addEventListener('pointermove', e => {
+      if (st.id !== e.pointerId) return;
+      e.preventDefault();
+      let dx = e.clientX - st.ox, dy = e.clientY - st.oy;
+      const d = Math.hypot(dx, dy);
+      if (d > st.R){ dx = dx / d * st.R; dy = dy / d * st.R; }
+      st.dx = dx / st.R; st.dy = dy / st.R;
+      desenhaStick(st);
+    }, {passive:false});
+
+    const fim = e => {
+      if (st.id !== e.pointerId) return;
+      e.preventDefault();
+      soltaStick(st);
+      try { zone.releasePointerCapture(e.pointerId); } catch(_){}
+    };
+    zone.addEventListener('pointerup', fim, {passive:false});
+    zone.addEventListener('pointercancel', fim, {passive:false});
+    zone.addEventListener('contextmenu', e => e.preventDefault());
+  }
+
+  function lerSticks(){
+    ACTIONS.forEach(a => stk[a] = false);
+
+    const m = STK.move;
+    if (m.on){
+      if (m.dx < -0.30) stk.left  = true;
+      if (m.dx >  0.30) stk.right = true;
+      if (m.dy < -0.55) stk.up    = true;
+      if (m.dy >  0.55) stk.down  = true;
+    }
+
+    const a = STK.aim;
+    const mag = a.on ? Math.hypot(a.dx, a.dy) : 0;
+    if (mag > 0.35){
+      stk.shoot = true;
+      aimStick.active = true;
+      aimStick.ang = Math.atan2(a.dy, a.dx);
+      aimStick.mag = mag;
+    } else {
+      aimStick.active = false;
+      aimStick.mag = 0;
+    }
+  }
+
   function setAct(act, val){
     tc[act] = val;
     if (act === 'jump') tc.confirm = val;
@@ -184,6 +286,8 @@ const Input = (() => {
     if (!pad) return;
 
     const b = i => pad.buttons[i] && (pad.buttons[i].pressed || pad.buttons[i].value > 0.4);
+    // gatilhos (R2/L2 no PS, RT/LT no Xbox) sao analogicos: basta apertar de leve
+    const gat = i => pad.buttons[i] && (pad.buttons[i].pressed || pad.buttons[i].value > 0.15);
     const ax = i => pad.axes[i] !== undefined ? pad.axes[i] : 0;
 
     gp.left  = ax(0) < -DEAD || b(14);
@@ -192,8 +296,8 @@ const Input = (() => {
     gp.down  = ax(1) >  DEAD || b(13);
 
     gp.jump  = b(0);                    // A / X(PS)
-    gp.shoot = b(2) || b(7);            // X(Xbox) / Quadrado / RT
-    gp.dash  = b(1) || b(5) || b(6);    // B / RB / LT
+    gp.shoot = gat(7) || b(2);          // R2 (PS) / RT (Xbox) - ou Quadrado / X
+    gp.dash  = b(1) || b(5) || gat(6);  // B / R1 / L2
     gp.super = b(3) || b(4);            // Y / LB
     gp.pause = b(9);                    // Start
     gp.back  = b(8) || b(1);            // Select / B
@@ -219,9 +323,10 @@ const Input = (() => {
   /* ---------- ATUALIZAÇÃO POR QUADRO ---------- */
   function update(){
     pollPad();
+    lerSticks();
     for (const a of ACTIONS){
       prev[a]    = held[a];
-      held[a]    = kb[a] || tc[a] || gp[a] || ms[a];
+      held[a]    = kb[a] || tc[a] || stk[a] || gp[a] || ms[a];
       pressed[a] = held[a] && !prev[a];
     }
   }
@@ -229,20 +334,26 @@ const Input = (() => {
   function anyPressed(){ return ACTIONS.some(a => pressed[a]); }
 
   function clear(){
-    ACTIONS.forEach(a => { kb[a]=tc[a]=gp[a]=ms[a]=held[a]=prev[a]=false; pressed[a]=false; });
+    ACTIONS.forEach(a => { kb[a]=tc[a]=stk[a]=gp[a]=ms[a]=held[a]=prev[a]=false; pressed[a]=false; });
+    soltaStick(STK.move); soltaStick(STK.aim);
+    aimStick.active = false;
   }
 
   function releaseTouch(){
-    ACTIONS.forEach(a => tc[a] = false);
+    ACTIONS.forEach(a => { tc[a] = false; stk[a] = false; });
+    soltaStick(STK.move); soltaStick(STK.aim);
+    aimStick.active = false;
     btnAct.clear();
     if (touchRoot) touchRoot.querySelectorAll('.pressed').forEach(el => el.classList.remove('pressed'));
   }
 
   bindTouch();
   bindMouse();
+  bindStick(STK.move, 'zone-move');
+  bindStick(STK.aim,  'zone-aim');
 
   return {
-    ACTIONS, held, pressed, update, rumble, anyPressed, clear, releaseTouch, mouse,
+    ACTIONS, held, pressed, update, rumble, anyPressed, clear, releaseTouch, mouse, aimStick,
     get usingMouse(){ return usingMouse; },
     get isTouchMode(){ return lastDevice === 'touch'; },
     get deviceChanged(){ return deviceChanged; },

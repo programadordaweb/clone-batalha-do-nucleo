@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="CLONE!">
 
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=14">
 </head>
 <body>
 
@@ -26,18 +26,25 @@
 
     <!-- ====== CONTROLES DE TOQUE (celular / tablet) ====== -->
     <div id="touch" class="hidden">
-      <div class="pad-left">
-        <button class="tbtn dpad" data-act="left"  aria-label="Esquerda"><span>◀</span></button>
-        <button class="tbtn dpad" data-act="up"    aria-label="Cima"><span>▲</span></button>
-        <button class="tbtn dpad" data-act="down"  aria-label="Baixo"><span>▼</span></button>
-        <button class="tbtn dpad" data-act="right" aria-label="Direita"><span>▶</span></button>
+      <!-- analogico da esquerda: andar -->
+      <div class="stick-zone left" id="zone-move">
+        <div class="stick-hint">MOVER</div>
+        <div class="stick-base"></div>
+        <div class="stick-knob"></div>
       </div>
-      <div class="pad-right">
-        <button class="tbtn act a-dash"  data-act="dash"  aria-label="Correr"><span>DASH</span></button>
-        <button class="tbtn act a-super" data-act="super" aria-label="Super"><span>SUPER</span></button>
-        <button class="tbtn act a-shoot" data-act="shoot" aria-label="Atirar"><span>TIRO</span></button>
-        <button class="tbtn act a-jump"  data-act="jump"  aria-label="Pular"><span>PULO</span></button>
+
+      <!-- analogico da direita: mirar e atirar -->
+      <div class="stick-zone right" id="zone-aim">
+        <div class="stick-hint">MIRAR E ATIRAR</div>
+        <div class="stick-base"></div>
+        <div class="stick-knob"></div>
       </div>
+
+      <!-- botoes de ombro, na borda de cima -->
+      <button class="tbtn sh sh-super" data-act="super" aria-label="Super"><span>SUPER</span></button>
+      <button class="tbtn sh sh-dash"  data-act="dash"  aria-label="Correr"><span>DASH</span></button>
+      <button class="tbtn sh sh-jump"  data-act="jump"  aria-label="Pular"><span>PULO</span></button>
+
       <button id="btn-pause" class="tbtn sys" data-act="pause" aria-label="Pausar"><span>II</span></button>
     </div>
   </div>
@@ -50,14 +57,14 @@
   </div>
 </div>
 
-<script src="js/input.js" charset="utf-8"></script>
-<script src="js/audio.js" charset="utf-8"></script>
-<script src="js/art.js" charset="utf-8"></script>
-<script src="js/shop.js" charset="utf-8"></script>
-<script src="js/entities.js" charset="utf-8"></script>
-<script src="js/boss.js" charset="utf-8"></script>
-<script src="js/map.js" charset="utf-8"></script>
-<script src="js/game.js" charset="utf-8"></script>
+<script src="js/input.js?v=14" charset="utf-8"></script>
+<script src="js/audio.js?v=14" charset="utf-8"></script>
+<script src="js/art.js?v=14" charset="utf-8"></script>
+<script src="js/shop.js?v=14" charset="utf-8"></script>
+<script src="js/entities.js?v=14" charset="utf-8"></script>
+<script src="js/boss.js?v=14" charset="utf-8"></script>
+<script src="js/map.js?v=14" charset="utf-8"></script>
+<script src="js/game.js?v=14" charset="utf-8"></script>
 
 <script>
 /* registra o service worker (deixa o jogo instalável e offline) */

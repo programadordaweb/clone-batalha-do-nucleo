@@ -300,7 +300,13 @@ class Player {
     }
 
     // ---- MIRA ----
-    if(Input.usingMouse && !this.ducking){
+    if(Input.aimStick.active && !this.ducking){
+      // mira livre pelo analogico direito do celular
+      this.aimAngle = Input.aimStick.ang;
+      const cx = Math.cos(this.aimAngle);
+      if(Math.abs(cx) > 0.25) this.face = cx < 0 ? -1 : 1;
+      this.aim='mouse';
+    } else if(Input.usingMouse && !this.ducking){
       // mira livre: aponta para o cursor do mouse
       const mx=Input.mouse.x, my=Input.mouse.y;
       const dx=mx-this.x, dy=my-this.cy;

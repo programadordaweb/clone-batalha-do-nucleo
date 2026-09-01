@@ -3,21 +3,21 @@
    Depois de abrir uma vez, o celular guarda tudo e o jogo roda
    mesmo sem internet.
    ============================================================ */
-const CACHE = 'clone-v10';
+const CACHE = 'clone-v14';
 
 const ARQUIVOS = [
   './',
   './index.html',
   './manifest.webmanifest',
-  './css/style.css',
-  './js/input.js',
-  './js/audio.js',
-  './js/art.js',
-  './js/shop.js',
-  './js/entities.js',
-  './js/boss.js',
-  './js/map.js',
-  './js/game.js',
+  './css/style.css?v=14',
+  './js/input.js?v=14',
+  './js/audio.js?v=14',
+  './js/art.js?v=14',
+  './js/shop.js?v=14',
+  './js/entities.js?v=14',
+  './js/boss.js?v=14',
+  './js/map.js?v=14',
+  './js/game.js?v=14',
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/icon-maskable-192.png',
@@ -46,28 +46,23 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   const req = e.request;
   if (req.method !== 'GET') return;
+  if (new URL(req.url).origin !== location.origin) return;
 
+  // REDE PRIMEIRO: assim uma versao nova do jogo aparece na hora.
+  // Se estiver sem internet, cai para o que esta guardado (offline).
   e.respondWith(
-    caches.match(req).then(hit => {
-      if (hit) {
-        // atualiza em segundo plano para a próxima vez
-        fetch(req).then(res => {
-          if (res && res.ok) caches.open(CACHE).then(c => c.put(req, res.clone()));
-        }).catch(() => {});
-        return hit;
-      }
-      return fetch(req)
-        .then(res => {
-          if (res && res.ok && res.type === 'basic') {
-            const copia = res.clone();
-            caches.open(CACHE).then(c => c.put(req, copia));
-          }
-          return res;
-        })
-        .catch(() => {
-          if (req.mode === 'navigate') return caches.match('./index.html');
-          return new Response('', {status: 504, statusText: 'offline'});
-        });
-    })
+    fetch(req)
+      .then(res => {
+        if (res && res.ok){
+          const copia = res.clone();
+          caches.open(CACHE).then(c => c.put(req, copia));
+        }
+        return res;
+      })
+      .catch(() => caches.match(req).then(hit => {
+        if (hit) return hit;
+        if (req.mode === 'navigate') return caches.match('./index.html');
+        return new Response('', {status:504, statusText:'offline'});
+      }))
   );
 });
