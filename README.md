@@ -127,11 +127,13 @@ Cada um tem 3 fases e um cartão explicando a ciência antes de cada fase.
 | 2 | Máquina de SCNT | **Como se clona**: tira o núcleo do óvulo, injeta o núcleo adulto, choque elétrico | Micropipeta (raio vertical), chuva de óvulos, fusão elétrica, placas de Petri |
 | 3 | O rebanho | **277 tentativas para 1 Dolly** | Debandada de clones, tempestade de lã, méééga balido, cópias da Dolly |
 
-No menu há ainda **CIÊNCIA DA CLONAGEM**: 10 fichas de estudo (clones naturais,
-mitose × meiose, como Dolly foi feita, reprodutiva × terapêutica, epigenética,
-por que clonar é difícil e uma ficha completa de **ética e lei**: o que é ética,
-por que humanos não podem ser clonados e animais sim, a Lei de Biossegurança
-11.105/2005 e as regras da pesquisa com células-tronco).
+No menu há ainda **CIÊNCIA DA CLONAGEM**, com 10 fichas de estudo: o que é
+clonagem, clones naturais, mitose × meiose, como acontece, quais são os
+benefícios (com casos reais de 2024 e 2025), clone não é cópia idêntica,
+**ética e lei** (o que é ética, por que humanos não e animais sim, a Lei de
+Biossegurança 11.105/2005 e as regras das células-tronco), **a ovelha Dolly**
+(o nome, as três "mães" e a questão do envelhecimento do clone), riscos e
+limitações e para que serve.
 
 Dificuldade: **ESTAGIÁRIO** (4 vidas) ou **CIENTISTA** (3 vidas, inimigos mais rápidos).
 

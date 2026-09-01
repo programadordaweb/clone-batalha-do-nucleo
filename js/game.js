@@ -188,18 +188,11 @@ const SCIENCE = [
     body:'Mitose: 1 célula gera 2 idênticas, com o mesmo número de cromossomos - crescimento e reparo. Meiose: gera 4 células com metade dos cromossomos (gametas) e MISTURA os genes - por isso irmãos não são iguais.'
   },
   {
-    title:'COMO DOLLY FOI FEITA',
-    topics:[
-      ['OS 4 PASSOS',
-       '1) Tira-se o núcleo de um óvulo, que fica sem DNA. 2) Coloca-se no lugar o núcleo da célula doadora. 3) Um choque elétrico funde as duas partes e a divisão começa. 4) O embrião é implantado numa barriga de aluguel.'],
-      ['QUE CÉLULA FOI USADA',
-       'O núcleo veio de uma célula da GLÂNDULA MAMÁRIA (o úbere) de uma ovelha Finn Dorset de 6 anos. O óvulo era de outra raça (Scottish Blackface) e uma terceira ovelha gestou o filhote: Dolly teve três "mães".'],
-      ['POR QUE O NOME DOLLY',
-       'Como a célula usada era da glândula mamária, os cientistas do Instituto Roslin batizaram a ovelha em homenagem à cantora country Dolly Parton. Ela nasceu em 5/7/1996 e hoje está no Museu Nacional da Escócia.']
-    ]
+    title:'COMO ACONTECE',
+    body:'1) Tira-se o núcleo de um óvulo, que fica sem DNA. 2) Coloca-se no lugar o núcleo de uma célula adulta do doador. 3) Um choque elétrico funde as duas partes e a divisão começa. 4) O embrião é implantado numa barriga de aluguel. O filhote nasce com o mesmo DNA do doador.'
   },
   {
-    title:'REPRODUTIVA x TERAPÊUTICA',
+    title:'QUAIS SÃO OS BENEFÍCIOS',
     topics:[
       ['A DIFERENÇA',
        'A reprodutiva quer formar um indivíduo. A terapêutica para no 5º dia e só retira as células-tronco, que viram qualquer tecido do corpo.'],
@@ -229,20 +222,20 @@ const SCIENCE = [
     ]
   },
   {
-    title:'DOLLY: O CLONE ENVELHECE ANTES?',
+    title:'A OVELHA DOLLY',
     topics:[
-      ['DE ONDE VEIO ESSA DÚVIDA',
-       'Telômeros são as pontas dos cromossomos: encurtam a cada divisão, como um relógio da célula. Em 1999 os de Dolly estavam mais curtos que o normal - será que ela nasceu já com os 6 anos da doadora?'],
-      ['POR QUE ELA MORREU AOS 6 ANOS',
-       'A raça dela (Finn Dorset) vive de 11 a 12 anos. Em 2003 Dolly foi sacrificada por um tumor de pulmão causado por um vírus comum em ovelhas de galpão - outras do rebanho adoeceram junto. Não foi velhice.'],
-      ['A CIÊNCIA RESPONDEU DEPOIS',
-       '2016: 13 ovelhas clonadas, 4 do mesmo material da Dolly, chegaram aos 7-9 anos com coração, pressão e insulina normais (Nature Communications). 2017: o raio-X dela mostrou artrite normal para a idade.'],
-      ['ENTÃO QUANTO DURA UM CLONE?',
-       'O esperado é o tempo normal da espécie: a gata CC, primeiro pet clonado, viveu 18 anos e teve filhotes saudáveis. O risco maior é no começo - muitos embriões não vingam.']
+      ['QUEM FOI E DE ONDE VEIO O NOME',
+       'Nasceu em 5/7/1996 no Instituto Roslin (Escócia): o primeiro mamífero clonado a partir de uma célula ADULTA, tirada da GLÂNDULA MAMÁRIA (o úbere) de uma ovelha de 6 anos. Por isso o nome homenageia a cantora country Dolly Parton.'],
+      ['ELA TEVE TRÊS "MÃES"',
+       'O núcleo veio de uma ovelha Finn Dorset, o óvulo de uma Scottish Blackface e uma terceira gestou o filhote. Dolly teve 6 filhotes normais e hoje está no Museu Nacional da Escócia.'],
+      ['ENVELHECEU ANTES DA HORA?',
+       'Telômeros são as pontas dos cromossomos e encurtam a cada divisão, como um relógio. Em 1999 os dela estavam curtos. Mas ela morreu aos 6 anos de um tumor de pulmão causado por um vírus que pegou outras ovelhas do galpão - não foi velhice.'],
+      ['QUANTO DURA UM CLONE',
+       '2016: 13 ovelhas clonadas chegaram aos 7-9 anos saudáveis (Nature Communications) e o raio-X de 2017 mostrou artrite normal para a idade. A gata CC, primeiro pet clonado, viveu 18 anos.']
     ]
   },
   {
-    title:'POR QUE CLONAR É DIFÍCIL',
+    title:'RISCOS E LIMITAÇÕES',
     body:'O núcleo adulto precisa ser "reprogramado" para agir como o de um embrião. Isso quase nunca dá certo: no caso da Dolly foram 277 óvulos reconstruídos, 29 embriões e 1 nascimento. Por isso a clonagem é cara, demorada e levanta questões de bem-estar animal.'
   },
   {
