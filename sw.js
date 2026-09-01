@@ -3,21 +3,21 @@
    Depois de abrir uma vez, o celular guarda tudo e o jogo roda
    mesmo sem internet.
    ============================================================ */
-const CACHE = 'clone-v15';
+const CACHE = 'clone-v18';
 
 const ARQUIVOS = [
   './',
   './index.html',
   './manifest.webmanifest',
-  './css/style.css?v=15',
-  './js/input.js?v=15',
-  './js/audio.js?v=15',
-  './js/art.js?v=15',
-  './js/shop.js?v=15',
-  './js/entities.js?v=15',
-  './js/boss.js?v=15',
-  './js/map.js?v=15',
-  './js/game.js?v=15',
+  './css/style.css?v=18',
+  './js/input.js?v=18',
+  './js/audio.js?v=18',
+  './js/art.js?v=18',
+  './js/shop.js?v=18',
+  './js/entities.js?v=18',
+  './js/boss.js?v=18',
+  './js/map.js?v=18',
+  './js/game.js?v=18',
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/icon-maskable-192.png',

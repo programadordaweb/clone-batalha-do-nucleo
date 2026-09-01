@@ -1461,10 +1461,10 @@ function drawHowTo(){
     ['MOVER',        'Setas / A D',     '-',                'Analóg. esquerdo', 'Analógico'],
     ['ATIRAR',       'Z ou J',          'BOTÃO ESQUERDO',   'Analóg. direito',  'R2 / RT'],
     ['MIRAR',        'Cima / Baixo',    'MOVER O CURSOR',   'Analóg. direito',  'Analógico'],
-    ['PULAR',        'X, Espaço ou K',  '-',                'PULO (em cima)',   'A / X(PS)'],
-    ['DASH',         'C, L ou Shift',   '-',                'DASH (em cima)',   'B / R1'],
-    ['SUPER',        'V ou I',          'BOTÃO DIREITO',    'SUPER (em cima)',  'Y / L1'],
-    ['PAUSA',        'Enter, P ou Esc', '-',                'II (embaixo)',     'Start']
+    ['PULAR',        'X, Espaço ou K',  '-',                'botão VERDE',      'A / X(PS)'],
+    ['DASH',         'C, L ou Shift',   '-',                'botão AZUL',       'B / R1'],
+    ['SUPER',        'V ou I',          'BOTÃO DIREITO',    'botão ROSA',       'Y / L1'],
+    ['PAUSA',        'Enter, P ou Esc', '-',                'botão II (topo)',  'Start']
   ];
   const col=[0.081,0.234,0.422,0.625,0.750].map(f => Math.round(f*CFG.W));
   Art.text(ctx,'AÇÃO',col[0],78,{size:11,color:Art.PAL.blueDk,stroke:0,align:'left'});
@@ -1487,9 +1487,9 @@ function drawHowTo(){
     CFG.W/2,258,{size:12,color:Art.PAL.pinkHot,stroke:2.5});
   Art.text(ctx,'Cada defesa enche o SUPER. Com o SUPER cheio, use a MITOSE REVERSA!',
     CFG.W/2,274,{size:11,color:'#3a2c22',stroke:0});
-  Art.text(ctx,'No celular: encoste o dedo em qualquer lugar da metade da tela para o analógico aparecer ali mesmo.',
+  Art.text(ctx,'No celular: encoste o dedo em qualquer lugar da metade da tela e o analógico nasce ali mesmo.',
     CFG.W/2,290,{size:10,color:Art.PAL.blueDk,stroke:0});
-  Art.text(ctx,'Os controles da tela somem sozinhos quando você usa teclado ou controle, e voltam quando você toca.',
+  Art.text(ctx,'Os botões ficam embaixo, à direita: VERDE pula, AZUL é o dash e ROSA solta o super.',
     CFG.W/2,304,{size:9.5,color:'#6a563f',stroke:0});
 
   Art.text(ctx, touchMode()?'TOQUE PARA VOLTAR':'ESC / BACKSPACE PARA VOLTAR',

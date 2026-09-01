@@ -51,16 +51,17 @@ Também funciona hospedado em qualquer lugar (GitHub Pages, Netlify, Vercel) —
 | Mover | Setas ou `A` `D` | — | **analógico esquerdo** | Analógico / direcional |
 | Atirar | `Z` ou `J` | **BOTÃO ESQUERDO** | **analógico direito** | **R2 / RT** (ou X / Quadrado) |
 | Mirar | `↑` `↓` | **mover o cursor** (360°) | **analógico direito** (360°) | Analógico |
-| Pular | `X`, `K` ou `Espaço` | — | botão PULO (borda de cima) | A (Xbox) / X (PS) |
-| Dash | `C`, `L` ou `Shift` | — | botão DASH (borda de cima) | B / R1 |
-| Super | `V` ou `I` | **BOTÃO DIREITO** | botão SUPER (borda de cima) | Y / L1 |
-| Pausar | `Enter`, `P` ou `Esc` | — | botão **II** (embaixo, no meio) | Start |
+| Pular | `X`, `K` ou `Espaço` | — | botão **verde** (seta para cima) | A (Xbox) / X (PS) |
+| Dash | `C`, `L` ou `Shift` | — | botão **azul** (setas de corrida) | B / R1 |
+| Super | `V` ou `I` | **BOTÃO DIREITO** | botão **rosa** (raio) | Y / L1 |
+| Pausar | `Enter`, `P` ou `Esc` | — | botão **II** (no topo) | Start |
 | Menus / mapa | Setas + `Enter` | clique | toque na opção | Direcional + A |
 
 No celular os dois analógicos são **flutuantes**: eles nascem onde o dedo encosta —
 metade esquerda para andar, metade direita para mirar e atirar ao mesmo tempo
-(como um jogo de twin-stick). Os botões de PULO, DASH e SUPER ficam na borda de
-cima, onde os dedos indicadores apoiam com o celular deitado.
+(como um jogo de twin-stick). Os três botões de ação ficam embaixo, no canto direito, junto do analógico, e
+são desenhos em vez de texto: **verde** com seta para cima = pular, **azul** com
+setas de corrida = dash, **rosa** com um raio = super.
 
 ### A interface troca sozinha
 O jogo percebe o que você está usando e se adapta na hora:

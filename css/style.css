@@ -51,7 +51,7 @@ canvas#game{
 /* ---------- ANALOGICOS VIRTUAIS ---------- */
 .stick-zone{
   position:absolute; bottom:0;
-  width:42%; height:70%;
+  width:40%; height:66%;
   pointer-events:auto;
   touch-action:none;
 }
@@ -114,24 +114,46 @@ canvas#game{
 .tbtn span{ pointer-events:none; }
 .tbtn.pressed{ background:rgba(226,90,62,.75); color:#fff5e0; transform:scale(.92); }
 
-/* botoes de "ombro", na borda de cima (onde ficam os dedos indicadores) */
-.sh{
-  top:2%; height:14%;
-  border-radius:999px;
-  font-size:clamp(7px,1.6vw,13px);
+/* grupo de botoes de acao, embaixo a direita, junto do analogico */
+.cluster{
+  position:absolute; right:2%; bottom:10%;
+  height:32%;
+  display:flex; align-items:flex-end;
+  gap:min(2.5vw, 14px);
+  pointer-events:none;
 }
-.sh-jump { right:2%;  width:17%; background:rgba(120,200,140,.34); }
-.sh-dash { right:21%; width:14%; background:rgba(110,160,220,.34); }
-.sh-super{ right:37%; width:15%; background:rgba(220,110,190,.34); }
+.cluster .tbtn{ position:relative; pointer-events:auto; }
 
-/* pausa no topo, entre o HUD e os botoes de ombro */
+.act{ aspect-ratio:1/1; }
+.a-super{ height:52%; background:rgba(220,110,190,.34); }
+.a-dash { height:62%; background:rgba(110,160,220,.34); }
+.a-jump { height:84%; background:rgba(120,200,140,.34); }
+
+/* desenhos dentro dos botoes */
+.tbtn svg{
+  width:54%; height:54%;
+  pointer-events:none;
+  fill:#1a1410;
+  stroke:none;
+}
+.tbtn svg .ln{
+  fill:none;
+  stroke:#1a1410;
+  stroke-width:2.6;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.tbtn.pressed svg{ fill:#fff5e0; }
+.tbtn.pressed svg .ln{ stroke:#fff5e0; }
+
+/* pausa: fica em cima, longe dos dedos que estao jogando */
 .sys{
   top:2%; left:23%;
   width:6%; aspect-ratio:1/1;
   border-radius:8px;
-  font-size:clamp(8px,2vw,16px);
   background:rgba(244,230,200,.22);
 }
+.sys svg{ width:64%; height:64%; }
 
 /* ============================================================
    AVISO DE ROTAÇÃO
