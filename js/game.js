@@ -189,7 +189,14 @@ const SCIENCE = [
   },
   {
     title:'COMO DOLLY FOI FEITA',
-    body:'1) Retira-se o núcleo de um óvulo (fica sem DNA). 2) Insere-se o núcleo de uma célula da glândula mamária de uma ovelha adulta. 3) Um choque elétrico funde as células e inicia a divisão. 4) O embrião é implantado numa barriga de aluguel. Dolly nasceu em 5 de julho de 1996.'
+    topics:[
+      ['OS 4 PASSOS',
+       '1) Tira-se o núcleo de um óvulo, que fica sem DNA. 2) Coloca-se no lugar o núcleo da célula doadora. 3) Um choque elétrico funde as duas partes e a divisão começa. 4) O embrião é implantado numa barriga de aluguel.'],
+      ['QUE CÉLULA FOI USADA',
+       'O núcleo veio de uma célula da GLÂNDULA MAMÁRIA (o úbere) de uma ovelha Finn Dorset de 6 anos. O óvulo era de outra raça (Scottish Blackface) e uma terceira ovelha gestou o filhote: Dolly teve três "mães".'],
+      ['POR QUE O NOME DOLLY',
+       'Como a célula usada era da glândula mamária, os cientistas do Instituto Roslin batizaram a ovelha em homenagem à cantora country Dolly Parton. Ela nasceu em 5/7/1996 e hoje está no Museu Nacional da Escócia.']
+    ]
   },
   {
     title:'REPRODUTIVA x TERAPÊUTICA',
@@ -1578,9 +1585,26 @@ function drawCard(){
   Art.cardFrame(ctx,52,44,CFG.W-104,CFG.H-118,Art.PAL.paper);
   Art.ribbon(ctx,CFG.W/2,56,150,26,Art.PAL.red);
   Art.text(ctx,c.tag,CFG.W/2,56,{size:14,color:Art.PAL.cream,stroke:3});
-  Art.text(ctx,c.title,CFG.W/2,92,{size:20,color:Art.PAL.blueDk,stroke:2.5});
-  Art.paragraph(ctx,c.body,CFG.W/2,126,CFG.W-170,{size:12.5,color:'#2f241c',align:'center',lh:19});
-  Art.text(ctx,c.hint,CFG.W/2,214,{size:12,color:Art.PAL.greenDk,stroke:0});
+
+  // título encolhe se a tela for estreita
+  let ts = 20;
+  while (ts > 13 && Art.measure(ctx,c.title,ts) > CFG.W-140) ts -= 1;
+  Art.text(ctx,c.title,CFG.W/2,92,{size:ts,color:Art.PAL.blueDk,stroke:2.5});
+
+  // acha o maior tamanho de letra que faz o texto caber no cartão
+  let cs = 12.5, clh = 19, nlin = 0;
+  for (; cs >= 9; cs -= 0.5){
+    clh = cs * 1.52;
+    nlin = quebraLinhas(c.body, CFG.W-170, cs).length;
+    if (nlin * clh <= 86) break;
+  }
+  Art.paragraph(ctx,c.body,CFG.W/2,126,CFG.W-170,{size:cs,color:'#2f241c',align:'center',lh:clh});
+
+  // a dica fica logo abaixo do texto, com tamanho que caiba no cartão
+  const hy = Math.max(214, Math.min(258, 126 + nlin*clh + 12));
+  let hs = 12;
+  while (hs > 8.5 && Art.measure(ctx,c.hint,hs) > CFG.W-150) hs -= 0.5;
+  Art.text(ctx,c.hint,CFG.W/2,hy,{size:hs,color:Art.PAL.greenDk,stroke:0});
   ctx.restore();
 
   if(Game.cardT>26){
